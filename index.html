@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Red de Aliados · Soy ELLA</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Jost:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    /* ── PALETA SOYELLA ── */
+    :root {
+      --beige:       #F2EBE1;   /* fondo cálido principal */
+      --beige-card:  #FAF6F1;   /* tarjetas */
+      --beige-dark:  #E8DDD0;   /* bordes / separadores */
+      --rojo:        #8B1A1A;   /* rojo vino del logo */
+      --rojo-oscuro: #6B1111;   /* hover */
+      --rojo-pale:   #F5EAEA;   /* fondo badge beneficio */
+      --rojo-border: #DDB8B8;   /* borde badge */
+      --texto:       #2A2118;   /* texto principal oscuro cálido */
+      --texto-sub:   #7A6A58;   /* texto secundario */
+      --blanco:      #FFFFFF;
+    }
+
+    * { margin:0; padding:0; box-sizing:border-box; }
+
+    body {
+      font-family: 'Jost', sans-serif;
+      background: var(--beige);
+      color: var(--texto);
+      min-height: 100vh;
+    }
+
+    /* ── HEADER ── */
+    header {
+      background: var(--blanco);
+      border-bottom: 1px solid var(--beige-dark);
+      padding: 18px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky; top: 0; z-index: 100;
+      box-shadow: 0 1px 12px rgba(42,33,24,0.06);
+    }
+
+    .logo {
+      display: flex; flex-direction: column; line-height: 1;
+      text-decoration: none;
+    }
+    .logo-soy {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.85rem; font-weight: 400;
+      color: var(--rojo);
+      letter-spacing: 0.18em;
+      text-transform: lowercase;
+    }
+    .logo-ella {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem; font-weight: 700;
+      color: var(--rojo);
+      letter-spacing: 0.06em;
+      line-height: 0.95;
+    }
+
+    .nav-btn {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.72rem; font-weight: 500;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--rojo); text-decoration: none;
+      border: 1.5px solid var(--rojo);
+      padding: 9px 22px; border-radius: 2px;
+      transition: all 0.22s;
+    }
+    .nav-btn:hover { background: var(--rojo); color: var(--blanco); }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--rojo);
+      padding: 72px 48px 60px;
+      text-align: center;
+      position: relative; overflow: hidden;
+    }
+
+    /* Patrón sutil de círculos como en soyella.com */
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        radial-gradient(circle at 15% 50%, rgba(255,255,255,0.04) 120px, transparent 120px),
+        radial-gradient(circle at 85% 20%, rgba(255,255,255,0.04) 180px, transparent 180px),
+        radial-gradient(circle at 50% 90%, rgba(255,255,255,0.03) 100px, transparent 100px);
+      pointer-events: none;
+    }
+
+    .hero-eyebrow {
+      display: inline-block;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.67rem; font-weight: 500;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: rgba(255,255,255,0.7);
+      border: 1px solid rgba(255,255,255,0.25);
+      padding: 5px 18px; border-radius: 1px;
+      margin-bottom: 22px;
+    }
+
+    .hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.2rem, 5vw, 3.6rem);
+      font-weight: 600; color: var(--blanco);
+      line-height: 1.12; margin-bottom: 16px;
+    }
+    .hero h1 em { font-style: italic; font-weight: 400; }
+
+    .hero p {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.95rem; font-weight: 300;
+      color: rgba(255,255,255,0.75);
+      max-width: 480px; margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* ── FILTROS ── */
+    .filtros-section {
+      background: var(--blanco);
+      border-bottom: 1px solid var(--beige-dark);
+      padding: 24px 48px;
+    }
+
+    .filtros-label {
+      font-size: 0.65rem; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--texto-sub);
+      margin-bottom: 12px; font-weight: 500;
+    }
+
+    .filtros { display: flex; gap: 8px; flex-wrap: wrap; }
+
+    .filtro-btn {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.78rem; font-weight: 400;
+      letter-spacing: 0.04em;
+      padding: 7px 18px; border-radius: 2px;
+      border: 1px solid var(--beige-dark);
+      background: transparent; color: var(--texto-sub);
+      cursor: pointer; transition: all 0.2s;
+    }
+    .filtro-btn:hover { border-color: var(--rojo); color: var(--rojo); }
+    .filtro-btn.activo {
+      background: var(--rojo); border-color: var(--rojo);
+      color: var(--blanco); font-weight: 500;
+    }
+
+    /* ── GRID ── */
+    .main {
+      max-width: 1200px; margin: 0 auto;
+      padding: 48px 48px 72px;
+    }
+
+    .contador {
+      font-size: 0.75rem; color: var(--texto-sub);
+      letter-spacing: 0.04em; margin-bottom: 28px;
+    }
+    .contador strong { color: var(--rojo); }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(248px, 1fr));
+      gap: 20px;
+    }
+
+    /* ── CARD ── */
+    .card {
+      background: var(--beige-card);
+      border: 1px solid var(--beige-dark);
+      border-radius: 3px;
+      overflow: hidden;
+      transition: transform 0.25s, box-shadow 0.25s;
+      animation: fadeUp 0.4s ease both;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(139,26,26,0.1);
+    }
+    .card.hidden { display: none; }
+
+    @keyframes fadeUp {
+      from { opacity:0; transform: translateY(12px); }
+      to   { opacity:1; transform: translateY(0); }
+    }
+
+    /* Avatar con tono beige oscuro */
+    .card-avatar {
+      width: 100%; height: 155px;
+      background: var(--beige-dark);
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+    }
+    .card-avatar::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0;
+      height: 40px;
+      background: linear-gradient(to top, var(--beige-card), transparent);
+    }
+    .card-avatar svg { width: 52px; height: 52px; fill: var(--rojo); opacity: 0.18; }
+
+    .card-body { padding: 16px 18px 18px; }
+
+    .card-esp {
+      font-size: 0.62rem; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--rojo);
+      font-weight: 500; margin-bottom: 4px;
+    }
+    .card-nombre {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.08rem; font-weight: 600;
+      color: var(--texto); line-height: 1.25;
+      margin-bottom: 10px;
+    }
+
+    .modo {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 0.66rem; font-weight: 500;
+      padding: 3px 9px; border-radius: 1px;
+      margin-bottom: 9px; letter-spacing: 0.04em;
+    }
+    .dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+    .modo-online    { background: #EBF5EB; color: #2D6A2D; }
+    .modo-online .dot { background: #3A8A3A; }
+    .modo-presencial{ background: #EBF0F8; color: #1A4A8A; }
+    .modo-presencial .dot { background: #2A5FAA; }
+    .modo-ambas     { background: #F0EBF5; color: #5A2A8A; }
+    .modo-ambas .dot { background: #7A3AAA; }
+
+    .card-ciudad {
+      font-size: 0.76rem; color: var(--texto-sub);
+      margin-bottom: 12px;
+      display: flex; align-items: center; gap: 5px;
+    }
+    .card-ciudad svg { width: 12px; height: 12px; fill: var(--texto-sub); opacity: 0.6; }
+
+    .card-beneficio {
+      background: var(--rojo-pale);
+      border: 1px solid var(--rojo-border);
+      border-radius: 2px;
+      padding: 9px 11px;
+      font-size: 0.72rem; color: var(--rojo);
+      line-height: 1.5; margin-bottom: 14px;
+    }
+    .beneficio-label {
+      font-size: 0.6rem; letter-spacing: 0.12em;
+      text-transform: uppercase; font-weight: 600;
+      opacity: 0.65; display: block; margin-bottom: 2px;
+    }
+
+    .btn-wa {
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      width: 100%; padding: 11px;
+      background: #25D366; color: var(--blanco);
+      border: none; border-radius: 2px;
+      text-decoration: none;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.8rem; font-weight: 500;
+      letter-spacing: 0.04em;
+      cursor: pointer; transition: background 0.2s;
+    }
+    .btn-wa:hover { background: #1DAF58; }
+    .btn-wa svg { width: 16px; height: 16px; fill: white; flex-shrink: 0; }
+
+    /* ── SIN RESULTADOS ── */
+    .sin-res {
+      grid-column: 1/-1; text-align: center;
+      padding: 60px; color: var(--texto-sub);
+      font-size: 0.9rem; display: none;
+    }
+    .sin-res.visible { display: block; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--texto);
+      color: rgba(242,235,225,0.65);
+      text-align: center;
+      padding: 36px 48px;
+      font-size: 0.78rem; line-height: 2;
+    }
+    .footer-logo-soy  { font-family:'Cormorant Garamond',serif; font-size:0.8rem; color:rgba(242,235,225,0.5); letter-spacing:0.18em; }
+    .footer-logo-ella { font-family:'Cormorant Garamond',serif; font-size:1.6rem; font-weight:700; color:var(--beige); letter-spacing:0.06em; display:block; line-height:1; margin-bottom:6px; }
+    footer a { color: rgba(242,235,225,0.5); text-decoration:none; }
+    footer a:hover { color: var(--beige); }
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:640px){
+      header { padding:14px 20px; }
+      .logo-ella { font-size:1.6rem; }
+      .hero { padding:52px 20px 44px; }
+      .filtros-section { padding:18px 20px; }
+      .main { padding:28px 16px 52px; }
+      .grid { grid-template-columns: repeat(2,1fr); gap:12px; }
+      .card-nombre { font-size:0.95rem; }
+      .card-body { padding:12px 13px 14px; }
+      .card-avatar { height:130px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <a class="logo" href="https://www.soyella.com" target="_blank">
+    <span class="logo-soy">soy</span>
+    <span class="logo-ella">ELLA</span>
+  </a>
+  <a class="nav-btn" href="https://www.soyella.com/agendar#agendar" target="_blank">Agendar consulta</a>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">Red de Aliados Soy ELLA</div>
+  <h1>Conoce a nuestros<br><em>especialistas aliados</em></h1>
+  <p>Profesionales comprometidos con tu bienestar, con beneficios exclusivos para pacientes Soy ELLA.</p>
+</div>
+
+<!-- FILTROS -->
+<div class="filtros-section">
+  <div class="filtros-label">Filtrar por especialidad</div>
+  <div class="filtros">
+    <button class="filtro-btn activo" onclick="filtrar('todos',this)">Todas</button>
+    <button class="filtro-btn" onclick="filtrar('Sexología',this)">Sexología</button>
+    <button class="filtro-btn" onclick="filtrar('Psiquiatría',this)">Psiquiatría</button>
+    <button class="filtro-btn" onclick="filtrar('Oncología',this)">Oncología</button>
+    <button class="filtro-btn" onclick="filtrar('Cardiología',this)">Cardiología</button>
+    <button class="filtro-btn" onclick="filtrar('Ginecología',this)">Ginecología</button>
+    <button class="filtro-btn" onclick="filtrar('Medicina de Rehabilitación',this)">Rehabilitación</button>
+    <button class="filtro-btn" onclick="filtrar('Endocrinología',this)">Endocrinología</button>
+    <button class="filtro-btn" onclick="filtrar('Psicología',this)">Psicología</button>
+    <button class="filtro-btn" onclick="filtrar('Reumatología',this)">Reumatología</button>
+    <button class="filtro-btn" onclick="filtrar('Ginecología Oncológica',this)">Ginec. Oncológica</button>
+  </div>
+</div>
+
+<!-- GRID -->
+<div class="main">
+  <div class="contador">Mostrando <strong id="num">16</strong> especialistas</div>
+  <div class="grid" id="grid">
+
+    <!-- SVG symbols -->
+    <svg style="display:none">
+      <symbol id="persona" viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></symbol>
+      <symbol id="pin" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></symbol>
+      <symbol id="wa" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347"/></symbol>
+    </svg>
+
+    <!-- 1 · Sexología -->
+    <div class="card" data-esp="Sexología">
+      <div class="card-avatar"><svg viewBox="0 0 24 24"><use href="#persona"/></svg></div>
+      <div class="card-body">
+        <div class="card-esp">Sexología</div>
+        <div class="card-nombre">Marisela Núñez Cintrón</div>
+        <span class="modo modo-online"><span class="dot"></span>En línea</span>
+        <div class="card-ciudad"><svg viewBox="0 0 24 24"><use href="#pin"/></svg>Puebla</div>
+        <div class="card-beneficio"><span class="beneficio-label">Beneficio Soy ELLA</span>12% dto. en paquete de 5 sesiones ($3,960 pago completo)</div>
+        <a class="btn-wa" href="https://wa.me/522222933916" target="_blank"><svg viewBox="0 0 24 24"><use href="#wa"/></svg>Contactar por WhatsApp</a>
+      </div>
+    </div>
+
+    <!-- 2 · Psiquiatría -->
+    <div class="card" data-esp="Psiquiatría">
+      <div class="card-avatar"><svg viewBox="0 0 24 24"><use href="#persona"/></svg></div>
+      <div class="card-body">
+        <div class="card-esp">Psiquiatría</div>
+        <div class="card-nombre">Dra. Vera Cristina Meza Muñoz</div>
+        <span class="modo modo-online"><span class="dot"></span>En línea</span>
+        <div class="card-ciudad"><svg viewBox="0 0 24 24"><use href="#pin"/></svg>Chihuahua</div>
+        <div class="card-beneficio"><span class="beneficio-label">Beneficio Soy ELLA</span>50% dto. en primera consulta</div>
+        <a class="btn-wa" href="https://wa.me/526562795307" target="_blank"><svg viewBox="0 0 24 24"><use href="#wa"/></svg>Contactar por WhatsApp</a>
+      </div>
+    </div>
+
+    <!-- 3 · Psiquiatría -->
+    <div class="card" data-esp="Psiquiatría">
+      <div class="card-avatar"><svg viewBox="0 0 24 24"><use href="#persona"/></svg></div>
+      <div class="card-body">
+        <div class="card-esp">Psiquiatría</div>
+        <div class="card-nombre">Dra. Gabriela Pellon Díaz</div>
+        <span class="modo modo-ambas"><span class="dot"></span>Presencial y en línea</span>
+        <div class="card-ciudad"><svg viewBox="0 0 24 24"><use href="#pin"/></svg>CDMX</div>
+        <div class="card-beneficio"><span class="beneficio-label">Beneficio Soy ELLA</span>10% dto. en consulta inicial</div>
+        <a class="btn-wa" href="https://wa.me/525545293902" target="_blank"><svg viewBox="0 0 24 24"><use href="#wa"/></svg>Contactar por WhatsApp</a>
+      </div>
+    </div>
+
+    <!-- 4 · Oncología -->
+    <div class="card" data-esp="Oncología">
+      <div class="card-avatar"><svg viewBox="0 0 24 24"><use href="#persona"/></svg></div>
+      <div class="card-body">
+        <div class="card-esp">Oncología</div>
+        <div class="card-nombre">Dra. Yanin Chavarri</div>
+        <span class="modo modo-ambas"><span class="dot"></span>Presencial y en línea</span>
+        <div class="card-ciudad"><svg viewBox="0 0 24 24"><use href="#pin"/></svg>CDMX</div>
+        <div class="card-beneficio"><span class="beneficio-label">Beneficio Soy ELLA</span>50% dto. en primera consulta</div>
+        <a class="btn-wa" href="https://wa.me/525554247282" target="_blank"><svg viewBox="0 0 24 24"><use href="#wa"/></svg>Contactar por WhatsApp</a>
+      </div>
+    </div>
+
+    <!-- 5 · Cardiología -->
+    <div class="card" data-esp="Cardiología">
+      <div class="card-avatar"><svg viewBox="0 0 24 24"><use href="#persona"/></svg></div>
+      <div class="card-body">
+        <div class="card-esp">Cardiología</div>
+        <div class="card-nombre">Dra. Gabriela Aguilar Aizcorbe</div>
+        <span class="modo modo-presencial"><span class="dot"></span>Presencial</span>
+        <div class="card-ciudad"><svg viewBox="0 0 24 24"><use href="#pin"/></svg>Querétaro</div>
+        <div class="card-beneficio"><span class="beneficio-label">Beneficio Soy ELLA</span>20% dto. en primera sesión</div>
+        <a class="btn-wa" href="https://wa.me/524424758276" target="_blank"><svg viewBox="0 0 24 24"><use href="#wa"/></svg>Contactar por WhatsApp</a>
+      </div>
+    </div>
+
+    <!-- 6 · Cardiología -->
+    <div class="card" data-esp="Cardiología">
+      <div class="card-avatar"><svg viewBox="0 0 24 24"><use href="#persona"/></svg></div>
+      <div class="card-body">
+        <div class="card-esp">Cardiología</div>
+        <div class="card-nombre">Dra. Claudia Elizabeth Velázquez Sotelo</div>
+        <span class="modo modo-ambas"><span class="dot"></span>Presencial y en línea</span>
+        <div class="card-ciudad"><svg viewBox="0 0 24 24"><use href="#pin"/></svg>Guadalajara</div>
+        <div class="card-beneficio"><span class="beneficio-label">Beneficio Soy ELLA</span>15% dto. en consulta</div>
+        <a class="btn-wa" href="https://wa.me/523312345678" target="_blank"><svg viewBox="0 0 24 24"><use href="#wa"/></svg>Contactar por WhatsApp</a>
+      </div>
+    </div>
+
+    <!-- 7 · Cardiología -->
+    <div class="card" data-esp="Cardiología">
+      <div class="card-avatar"><svg viewBox="0 0 24 24"><use href="#persona"/></svg></div>
+      <div class="card-body">
+        <div class="card-esp">Cardiología</div>
+        <div class="card-nombre">Dra. Jenniffer Ann Swain Saint Martin</div>
+        <span class="modo modo-presencial"><span class="dot"></span>Presencial</span>
+        <div class="card-ciudad"><svg viewBox="0 0 24 24"><use href="#pin"/></svg>CDMX</div>
+        <div class="card-beneficio"><span class="beneficio-label">Beneficio Soy ELLA</span>50% en primera consulta</div>
+        <a class="btn-wa" href="https://wa.me/525534148934" target="_blank"><svg viewBox="0 0 24 24"><use href="#wa"/></svg>Contactar por WhatsApp</a>
+      </div>
+    </div>
+
+    <!-- 8 · Ginecología -->
+    <div class="card" data-esp="Ginecología">
+      <div class="card-avatar"><svg viewBox="0 0 24 24"><use href="#persona"/></svg></div>
+      <div class="card-body">
+        <div class="card-esp">Ginecología</div>
+        <div class="card-nombre">Dra. Eleana Valdovinos García</div>
+        <span class="modo modo-ambas"><span class="dot"></span>Presencial y en línea</span>
+        <div class="card-ciudad"><svg viewBox="0 0 24 24"><use href="#pin"/></svg>CDMX</div>
+        <div class="card-beneficio"><span class="beneficio-label">Beneficio Soy ELLA</span>40% dto. en consulta checkups</div>
+        <a class="btn-wa" href="https://wa.me/525534365036" target="_blank"><svg viewBox="0 0 24 24"><use href="#wa"/></svg>Contactar por WhatsApp</a>
+      </div>
+    </div>
+
+    <!-- 9 · Ginecología -->
+    <div class="card" data-esp="Ginecología">
+      <div class="card-avatar"><svg viewBox="0 0 24 24"><use href="#persona"/></svg></div>
+      <div class="card-body">
+        <div class="card-esp">Ginecología</div>
+        <div class="card-nombre">Dra. María Fernanda Navarro Martínez</div>
+        <span class="modo modo-ambas"><span class="dot"></span>Presencial y en línea</span>
+        <div class="card-ciudad"><svg viewBox="0 0 24 24"><use href="#pin"/></svg>CDMX</div>
+        <div class="card-beneficio"><span class="beneficio-label">Beneficio Soy ELLA</span>20% paquetes checkup · 15% en 3 sesiones rejuvenecimiento vaginal láser CO2</div>
+        <a class="btn-wa" href="https://wa.me/528118863790" target="_blank"><svg viewBox="0 0 24 24"><use href="#wa"/></svg>Contactar por WhatsApp</a>
+      </div>
+    </div>
+
+    <!-- 10 · Rehabilitación -->
+    <div class="card" data-esp="Medicina de Rehabilitación">
+      <div class="card-avatar"><svg viewBox="0 0 24 24"><use href="#persona"/></svg></div>
+      <div class="card-body">
+        <div class="card-esp">Medicina de Rehabilitación</div>
+        <div class="card-nombre">Dra. Andrea Olascoaga Gómez de León</div>
+        <span class="modo modo-presencial"><span class="dot"></span>Presencial</span>
+        <div class="card-ciudad"><svg viewBox="0 0 24 24"><use href="#pin"/></svg>CDMX</div>
+        <div class="card-beneficio"><span class="beneficio-label">Beneficio Soy ELLA</span>50% dto. en consulta inicial</div>
+        <a class="btn-wa" href="https://wa.me/525531017216" target="_blank"><svg viewBox="0 0 24 24"><use href="#wa"/></svg>Contactar por WhatsApp</a>
+      </div>
+    </div>
+
+    <!-- 11 · Endocrinología -->
+    <div class="card" data-esp="Endocrinología">
+      <div class="card-avatar"><svg viewBox="0 0 24 24"><use href="#persona"/></svg></div>
+      <div class="card-body">
+        <div class="card-esp">Endocrinología</div>
+        <div class="card-nombre">Dra. Begoña Domínguez Rodríguez</div>
+        <span class="modo modo-online"><span class="dot"></span>En línea</span>
+        <div class="card-ciudad"><svg viewBox="0 0 24 24"><use href="#pin"/></svg>CDMX</div>
+        <div class="card-beneficio"><span class="beneficio-label">Beneficio Soy ELLA</span>$2,800 costo de consulta</div>
+        <a class="btn-wa" href="https://wa.me/525523150401" target="_blank"><svg viewBox="0 0 24 24"><use href="#wa"/></svg>Contactar por WhatsApp</a>
+      </div>
+    </div>
+
+    <!-- 12 · Psicología -->
+    <div class="card" data-esp="Psicología">
+      <div class="card-avatar"><svg viewBox="0 0 24 24"><use href="#persona"/></svg></div>
+      <div class="card-body">
+        <div class="card-esp">Psicología</div>
+        <div class="card-nombre">Alejandra M. Du Solier</div>
+        <span class="modo modo-online"><span class="dot"></span>En línea</span>
+        <div class="card-ciudad"><svg viewBox="0 0 24 24"><use href="#pin"/></svg>Querétaro</div>
+        <div class="card-beneficio"><span class="beneficio-label">Beneficio Soy ELLA</span>50% primera consulta · desde 2ª sesión $1,300</div>
+        <a class="btn-wa" href="https://wa.me/524424955972" target="_blank"><svg viewBox="0 0 24 24"><use href="#wa"/></svg>Contactar por WhatsApp</a>
+      </div>
+    </div>
+
+    <!-- 13 · Reumatología -->
+    <div class="card" data-esp="Reumatología">
+      <div class="card-avatar"><svg viewBox="0 0 24 24"><use href="#persona"/></svg></div>
+      <div class="card-body">
+        <div class="card-esp">Reumatología</div>
+        <div class="card-nombre">Tayde Sarahí Gracia Aréchiga</div>
+        <span class="modo modo-ambas"><span class="dot"></span>Presencial y en línea</span>
+        <div class="card-ciudad"><svg viewBox="0 0 24 24"><use href="#pin"/></svg>CDMX / Monterrey</div>
+        <div class="card-beneficio"><span class="beneficio-label">Beneficio Soy ELLA</span>$900 la primera consulta</div>
+        <a class="btn-wa" href="https://wa.me/528115409897" target="_blank"><svg viewBox="0 0 24 24"><use href="#wa"/></svg>Contactar por WhatsApp</a>
+      </div>
+    </div>
+
+    <!-- 14 · Reumatología -->
+    <div class="card" data-esp="Reumatología">
+      <div class="card-avatar"><svg viewBox="0 0 24 24"><use href="#persona"/></svg></div>
+      <div class="card-body">
+        <div class="card-esp">Reumatología</div>
+        <div class="card-nombre">Dra. Ana Cristina Medina García</div>
+        <span class="modo modo-presencial"><span class="dot"></span>Presencial</span>
+        <div class="card-ciudad"><svg viewBox="0 0 24 24"><use href="#pin"/></svg>Querétaro</div>
+        <div class="card-beneficio"><span class="beneficio-label">Beneficio Soy ELLA</span>$800 la primera consulta</div>
+        <a class="btn-wa" href="https://wa.me/528119196112" target="_blank"><svg viewBox="0 0 24 24"><use href="#wa"/></svg>Contactar por WhatsApp</a>
+      </div>
+    </div>
+
+    <!-- 15 · Reumatología -->
+    <div class="card" data-esp="Reumatología">
+      <div class="card-avatar"><svg viewBox="0 0 24 24"><use href="#persona"/></svg></div>
+      <div class="card-body">
+        <div class="card-esp">Reumatología</div>
+        <div class="card-nombre">Dra. Selene Maribel Delgado</div>
+        <span class="modo modo-ambas"><span class="dot"></span>Presencial y en línea</span>
+        <div class="card-ciudad"><svg viewBox="0 0 24 24"><use href="#pin"/></svg>Monterrey · Hospitaria / Obispado</div>
+        <div class="card-beneficio"><span class="beneficio-label">Beneficio Soy ELLA</span>$1,000 primera consulta (regular $1,200)</div>
+        <a class="btn-wa" href="https://wa.me/528115291027" target="_blank"><svg viewBox="0 0 24 24"><use href="#wa"/></svg>Contactar por WhatsApp</a>
+      </div>
+    </div>
+
+    <!-- 16 · Ginecología Oncológica -->
+    <div class="card" data-esp="Ginecología Oncológica">
+      <div class="card-avatar"><svg viewBox="0 0 24 24"><use href="#persona"/></svg></div>
+      <div class="card-body">
+        <div class="card-esp">Ginecología Oncológica</div>
+        <div class="card-nombre">Dr. Luis Arturo Hernández López</div>
+        <span class="modo modo-presencial"><span class="dot"></span>Presencial</span>
+        <div class="card-ciudad"><svg viewBox="0 0 24 24"><use href="#pin"/></svg>CDMX</div>
+        <div class="card-beneficio"><span class="beneficio-label">Beneficio Soy ELLA</span>50% dto. en consulta inicial</div>
+        <a class="btn-wa" href="https://wa.me/525578879487" target="_blank"><svg viewBox="0 0 24 24"><use href="#wa"/></svg>Contactar por WhatsApp</a>
+      </div>
+    </div>
+
+    <div class="sin-res" id="sinRes">No hay especialistas en esta categoría por el momento.</div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-logo-soy">soy</span>
+  <span class="footer-logo-ella">ELLA</span>
+  Clínica virtual especializada en menopausia<br>
+  <a href="https://www.soyella.com" target="_blank">www.soyella.com</a> &nbsp;·&nbsp; © 2025 Soy ELLA. Todos los derechos reservados.
+</footer>
+
+<script>
+  function filtrar(esp, btn) {
+    document.querySelectorAll('.filtro-btn').forEach(b => b.classList.remove('activo'));
+    btn.classList.add('activo');
+    const cards = document.querySelectorAll('.card[data-esp]');
+    let n = 0;
+    cards.forEach(c => {
+      const show = esp === 'todos' || c.dataset.esp === esp;
+      c.classList.toggle('hidden', !show);
+      if (show) n++;
+    });
+    document.getElementById('num').textContent = n;
+    document.getElementById('sinRes').classList.toggle('visible', n === 0);
+  }
+</script>
+</body>
+</html>
